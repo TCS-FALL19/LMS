@@ -4,7 +4,7 @@ const port = 3000
 
 app.get('/', (req, res) => {
 
-  res.send('Adding Annoucements!')
+  res.send('Adding Annoucements2!')
   //Temp comment
 })
 
