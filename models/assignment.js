@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 
-var schema = mongoose.Schema;
-
 var AssignmentSchema = mongoose.Schema({
     teacher_id: { 
         type: Number, 
@@ -18,6 +16,9 @@ var AssignmentSchema = mongoose.Schema({
     totalMarks: { 
         type: Number 
     },
+    deadline: { 
+        type: Date //  YYYY-MM-DD
+    },
     description: { 
         type: String
      },
@@ -26,6 +27,8 @@ var AssignmentSchema = mongoose.Schema({
         filename: String,
         marks: Number
     }]
-});
+    },{
+        timestamps: true
+    });
 
 module.exports = mongoose.model('Assignment', AssignmentSchema);
