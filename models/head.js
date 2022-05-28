@@ -1,15 +1,11 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+var mongoose = require("mongoose");
 
-const headSchema = new Schema({
+var schema = mongoose.Schema;
+
+var headSchema = new schema({
 	name: {
 		type: String,
 		required: true,
 	},
-	rollNo: {
-		type: String,
-		required: true,
-	},
 });
-
 module.exports = mongoose.model("Head", headSchema);

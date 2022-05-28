@@ -18,6 +18,4 @@ router.post("/addQuiz", async (req, res, next) => {
 	} catch (error) {
 		next(error.message);
 	}
-	// console.log(req.body);
-	// res.json(req.body.quiz);
 });

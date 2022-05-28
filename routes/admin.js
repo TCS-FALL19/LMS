@@ -1,15 +1,20 @@
 const express = require("express");
-const router = express.Router();
-const Admin = require("../models/admin");
-const Class = require("../models/class");
-const Teacher = require("../models/teacher");
-const Student = require("../models/student");
+var router = express.Router();
 
-/* GET Operations */
-router.get("/", function (req, res, next) {
-	res.send("respond with a resource");
+var Admin = require("../models/admin");
+var Class = require("../models/class");
+var Teacher = require("../models/teacher");
+var Student = require("../models/student");
+var Announcement = require("../models/announcement");
+const { route } = require("express/lib/application");
+
+//GET Methods
+
+router.get("/", (req, res, next) => {
+	res.status(200).render("Admin", { title: "Admin" });
 });
-router.get("/classes", function (req, res, next) {
+
+router.get("/classes", (req, res, next) => {
 	Class.find({})
 		.populate("teacher")
 		.populate("students.sid")
@@ -17,22 +22,11 @@ router.get("/classes", function (req, res, next) {
 			if (error) {
 				return next(error);
 			}
-			// Respond with valid data
 			res.json(results);
 		});
 });
-router.get("/students", function (req, res, next) {
-	Student.find()
-		.sort("name")
-		.exec(function (error, results) {
-			if (error) {
-				return next(error);
-			}
-			// Respond with valid data
-			res.json(results);
-		});
-});
-router.get("/teachers", function (req, res, next) {
+
+router.get("/teachers", (req, res, next) => {
 	Teacher.find()
 		.sort("name")
 		.exec(function (error, results) {
@@ -43,8 +37,21 @@ router.get("/teachers", function (req, res, next) {
 			res.json(results);
 		});
 });
-router.get("/classes/:id", function (req, res, next) {
-	Class.find({ _id: req.params.id })
+
+router.get("/students", (req, res, next) => {
+	Student.find()
+		.sort("name")
+		.exec(function (error, results) {
+			if (error) {
+				return next(error);
+			}
+			// Respond with valid data
+			res.json(results);
+		});
+});
+
+router.get("/classes/:cid", (req, res, next) => {
+	Class.find({ _id: req.params.cid })
 		.populate("teacher")
 		.populate("students.sid")
 		.exec(function (error, results) {
@@ -55,19 +62,8 @@ router.get("/classes/:id", function (req, res, next) {
 			res.json(results);
 		});
 });
-router.get("/students/:id", function (req, res, next) {
-	Student.findById(req.params.id)
-		.then(
-			(student) => {
-				res.statusCode = 200;
-				res.setHeader("Content-Type", "application/json");
-				res.json(student);
-			},
-			(err) => next(err)
-		)
-		.catch((err) => next(err));
-});
-router.get("/teachers/:id", function (req, res, next) {
+
+router.get("/teachers/:tid", (req, res, next) => {
 	Teacher.findById(req.params.id)
 		.then(
 			(teacher) => {
@@ -79,8 +75,33 @@ router.get("/teachers/:id", function (req, res, next) {
 		)
 		.catch((err) => next(err));
 });
-//POST Operations
-router.post("/addteacher", function (req, res, next) {
+
+router.get("/students/:sid", (req, res, next) => {
+	Student.findById(req.params.id)
+		.then(
+			(student) => {
+				res.statusCode = 200;
+				res.setHeader("Content-Type", "application/json");
+				res.json(student);
+			},
+			(err) => next(err)
+		)
+		.catch((err) => next(err));
+});
+
+router.get("/Announcement", (req, res, next) => {
+	Announcement.find().exec((err, result) => {
+		if (err) {
+			return next(err);
+		}
+		// Respond with valid data
+		res.json(result);
+	});
+});
+
+//POST Methods
+
+router.post("/addTeacher", function (req, res, next) {
 	Teacher.create(req.body)
 		.then(
 			(teacher) => {
@@ -93,7 +114,8 @@ router.post("/addteacher", function (req, res, next) {
 		)
 		.catch((err) => next(err));
 });
-router.post("/addclass", function (req, res, next) {
+
+router.post("/addClass", function (req, res, next) {
 	Class.create(req.body)
 		.then(
 			(result) => {
@@ -106,21 +128,89 @@ router.post("/addclass", function (req, res, next) {
 		)
 		.catch((err) => next(err));
 });
-router.post("/addstudent", function (req, res, next) {
-	Student.create(req.body)
+
+// router.post('/addStudent', function (req, res, next) {
+//   Student.create(req.body)
+//   .then((student) => {
+//       console.log('Student has been Added ', student);
+//       res.statusCode = 200;
+//       res.setHeader('Content-Type', 'application/json');
+//       res.json(student);
+//   }, (err) => next(err))
+//   .catch((err) => next(err));
+// })
+
+router.post("/addStudent", function (req, res, next) {
+	Student.create(req.body, (err, student) => {
+		if (err) {
+			res.status(400).json({ msg: "Error" });
+		}
+
+		console.log("Student has been Added ", student);
+		res.statusCode = 200;
+		res.setHeader("Content-Type", "application/json");
+		res.json(student);
+	});
+});
+
+router.post("/addAnnouncement", (req, res, next) => {
+	Announcement.create(req.body)
 		.then(
-			(student) => {
-				console.log("Student has been Added ", student);
+			(result) => {
+				console.log("Announcement has been Added ", result);
 				res.statusCode = 200;
 				res.setHeader("Content-Type", "application/json");
-				res.json(student);
+				res.json(result);
 			},
 			(err) => next(err)
 		)
 		.catch((err) => next(err));
 });
-//PUT Operations
-router.put("/assign/:cid/Student/:sid", function (req, res, next) {
+
+//PUT methods
+
+router.put("/classes/:cid", (req, res, next) => {
+	Class.findOneAndUpdate(
+		{ _id: req.params.tid },
+		req.body,
+		{ new: true },
+		function (error, results) {
+			if (error) {
+				return next(error);
+			}
+			res.json(results);
+		}
+	);
+});
+
+router.put("/teachers/:tid", (req, res, next) => {
+	Teacher.findOneAndUpdate(
+		{ _id: req.params.tid },
+		req.body,
+		{ new: true },
+		function (error, results) {
+			if (error) {
+				return next(error);
+			}
+			res.json(results);
+		}
+	);
+});
+
+router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
+	Class.findOneAndUpdate(
+		{ _id: req.params.cid },
+		{ teacher: req.params.tid },
+		function (error, results) {
+			if (error) {
+				return next(error);
+			}
+			res.json(results);
+		}
+	);
+});
+
+router.put("/assignStudent/:cid/:sid", (req, res, next) => {
 	Class.findOneAndUpdate(
 		{ _id: req.params.cid },
 		{
@@ -135,55 +225,61 @@ router.put("/assign/:cid/Student/:sid", function (req, res, next) {
 			if (error) {
 				return next(error);
 			}
-			// Respond with valid data
 			res.json(results);
 		}
 	);
 });
 
-router.put("/class/:cid/teacher/:tid", function (req, res, next) {
-	Class.findOneAndUpdate(
-		{ _id: req.params.cid },
-		{ teacher: req.params.tid },
-		function (error, results) {
+router.put("/Announcement/:id", (req, res, next) => {
+	Announcement.findOneAndUpdate(
+		{ _id: req.params.id },
+		req.body,
+		{ new: true, upsert: false },
+		(error, result) => {
 			if (error) {
 				return next(error);
 			}
-			// Respond with valid data
-			res.json(results);
+			res.json(result);
 		}
 	);
 });
-router.put("/class/:cid", function (req, res, next) {
-	res.send("respond with a resource");
-});
 
-//Delete Operations
+//DELETE methods
+
 router.delete("/delteacher/:id", function (req, res, next) {
 	Teacher.deleteOne({ _id: req.params.id }, function (error, results) {
 		if (error) {
 			return next(error);
 		}
-		// Respond with valid data
 		res.json(results);
 	});
 });
+
 router.delete("/delclass/:id", function (req, res, next) {
 	Class.deleteOne({ _id: req.params.id }, function (error, results) {
 		if (error) {
 			return next(error);
 		}
-		// Respond with valid data
 		res.json(results);
 	});
 });
+
 router.delete("/delstudent/:id", function (req, res, next) {
 	Student.deleteOne({ _id: req.params.id }, function (error, results) {
 		if (error) {
 			return next(error);
 		}
-		// Respond with valid data
 		res.json(results);
 	});
 });
+
+router.delete("/Announcement/:id", (req, res, next) => {
+	Announcement.deleteOne({ _id: req.params.id }, (error, result) => {
+		if (error) {
+			return next(error);
+		}
+		res.json(result);
+	});
+});
+
 module.exports = router;

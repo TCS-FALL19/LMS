@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-const teacherSchema = new Schema({
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+var teacherSchema = new Schema({
 	name: {
 		type: String,
 		required: true,

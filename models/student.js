@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-const studentSchema = new Schema({
+var Schema = mongoose.Schema;
+var studentSchema = new Schema({
 	name: {
 		type: String,
 		required: true,
 	},
-	rollNo: {
+	rollno: {
 		type: String,
 		required: true,
 	},
