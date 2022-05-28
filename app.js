@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
+var multer = require('multer')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,6 +12,17 @@ var teacherRouter = require('./routes/teacher');
 var adminRouter = require('./routes/admin');
 var studentRouter = require('./routes/student');
 var headRouter = require('./routes/head');
+
+var storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, 'uploads')
+  },
+  filename: function(req, file, cb) {
+      cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
 
 const connection = mongoose.connect('mongodb://localhost:27017/lms', { useNewUrlParser: true, useUnifiedTopology: true });
 var app = express();
