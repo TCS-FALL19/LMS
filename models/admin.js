@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 var schema = mongoose.Schema;
 
 var adminSchema = new schema({
-    name: {
-        type: String,
-        required: true,
-    }
+	name: {
+		type: String,
+		required: true,
+	},
 });
-module.exports = mongoose.model('Admin', adminSchema);
+module.exports = mongoose.model("Admin", adminSchema);
