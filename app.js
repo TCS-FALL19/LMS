@@ -4,14 +4,20 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-connection.then(
-	(db) => {
-		console.log("[+] Database Connected");
-	},
-	(err) => {
-		console.log(err);
-	}
-);
+
+const connection = mongoose
+	.connect("mongodb://localhost:27017/lms", {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	})
+	.then(
+		(db) => {
+			console.log("[+] Database Connected");
+		},
+		(err) => {
+			console.log(err);
+		}
+	);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -19,11 +25,6 @@ var studentRouter = require("./routes/student");
 var teacherRouter = require("./routes/teacher");
 var adminRouter = require("./routes/admin");
 var headRouter = require("./routes/head");
-
-const connection = mongoose.connect("mongodb://localhost:27017/lms", {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-});
 
 var app = express();
 
@@ -36,11 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-mongoose.connect("mongodb://localhost:27017/lms", (err, data) => {
-	if (err) return next(err);
-	console.log("database connected");
-});
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
