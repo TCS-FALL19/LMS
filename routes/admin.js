@@ -25,11 +25,12 @@ router.get("/classes", (req, res, next) => {
 			res.json(results);
 		});
 });
+//..................................................
+//Implemented by Alishba Iftikhar
+//..................................................
 
 router.get("/teachers", (req, res, next) => {
-	Teacher.find()
-		.sort("name")
-		.exec(function (error, results) {
+	Teacher.find().sort("name").exec(function (error, results) {
 			if (error) {
 				return next(error);
 			}
