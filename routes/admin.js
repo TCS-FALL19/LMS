@@ -297,6 +297,7 @@ router.delete("/teacher/:id", function (req, res, next) {
   });
 });
 
+// Implemented by Ahsan Rasheed
 router.delete("/delclass/:id", function (req, res, next) {
   Class.deleteOne({ _id: req.params.id }, function (error, results) {
     if (error) {
