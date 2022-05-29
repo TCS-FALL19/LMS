@@ -183,7 +183,10 @@ router.put("/classes/:cid", (req, res, next) => {
 	);
 });
 
+// Implemented by Muhammad Bilal Haider
+	
 router.put("/teachers/:tid", (req, res, next) => {
+
 	Teacher.findOneAndUpdate(
 		{ _id: req.params.tid },
 		req.body,
