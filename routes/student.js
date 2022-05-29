@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+const Quiz = require("../models/quiz");
 
 var router = express.Router();
 
@@ -48,7 +49,26 @@ router.put("/submitAssignment", upload.single("AttachedFile"), (req, res) => {
   );
 });
 
-console.log("test")
+
+router.put("/attemptquiz/:qID/:sID", async (req, res, next) => {
+  console.log(req.body.answer)
+
+  Quiz.findOneAndUpdate({ _id: req.params.qID }, {
+      "$push": {
+        "submissions": {
+            "student": req.params.sID,
+            "answers":req.body.answer,
+            "marks":0
+        }
+      }
+    }, { new: true, upsert: false },
+    function(error, results) {
+        if (error) {
+            return next(error);
+        }
+        res.json(results);
+    });
+});
 
 module.exports = router;
 
