@@ -33,6 +33,5 @@ Following are Teacher Routes:
   <li>Express Js</li>
 </ul>
 
-SOme testing changes
 
 
