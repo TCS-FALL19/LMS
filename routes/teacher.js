@@ -64,8 +64,12 @@ router.post("/addAssign", upload.single('AttachedFile'), (req, res, next) => {
 })
 
 
-// GET Routes
-
-
+// Delete Routes
+router.delete("/annoucement/:id", function (req, res, next) {
+	Announcement.deleteOne({ _id: req.params.id }, function (err, result) {
+		if (err) return next(err);
+		res.json(result);
+	})
+})
 
 module.exports = router;
