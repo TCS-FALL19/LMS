@@ -1,9 +1,12 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var mongoose = require("mongoose");
+
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+const mongoose = require('mongoose');
+
+
 
 const connection = mongoose
 	.connect("mongodb://localhost:27017/lms", {
@@ -28,6 +31,7 @@ var headRouter = require("./routes/head");
 
 var app = express();
 
+
 // // view engine setup
 // app.set("views", path.join(__dirname, "views"));
 // app.set("view engine", "jade");
@@ -46,6 +50,7 @@ app.use("/student", studentRouter);
 app.use("/head", headRouter);
 
 // catch 404 and forward to error handler
+
 app.use(function (req, res, next) {
 	next(createError(404));
 });
@@ -54,5 +59,6 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
 	res.send(err);
 });
+
 
 module.exports = app;

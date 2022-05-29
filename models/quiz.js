@@ -11,14 +11,16 @@ const quizSchema = new Schema({
 	subject: String,
 	totalMarks: Number,
 	submissionDate: String,
-	submissions: {
-		student: {
-			type: mongoose.Types.ObjectId,
-			ref: "Student",
+	submissions: [
+		{
+			student: {
+				type: mongoose.Types.ObjectId,
+				ref: "Student",
+			},
+			answers: [String],
+			marks: Number,
 		},
-		answers: [String],
-		marks: Number,
-	},
+	],
 });
 
 module.exports = mongoose.model("Quiz", quizSchema);

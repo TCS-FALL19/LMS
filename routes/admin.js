@@ -11,7 +11,7 @@ const { route } = require("express/lib/application");
 //GET Methods
 
 router.get("/", (req, res, next) => {
-  res.status(200).render("Admin", { title: "Admin" });
+  res.send("Admin Dashboard");
 });
 
 router.get("/classes", (req, res, next) => {
