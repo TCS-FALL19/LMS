@@ -11,8 +11,6 @@ const { route } = require("express/lib/application");
 //GET Methods
 
 router.get("/", (req, res, next) => {
-  console.log("admin route");
-  //   res.render("Admin", { title: "Admin" });
   res.send("Admin Dashboard");
 });
 
@@ -145,7 +143,7 @@ router.post("/addClass", function (req, res, next) {
 router.post("/addStudent", function (req, res, next) {
   Student.create(req.body, (err, student) => {
     if (err) {
-      return res.status(400).json({ msg: "Error" });
+      res.status(400).json({ msg: "Error" });
     }
 
     console.log("Student has been Added ", student);
@@ -173,7 +171,7 @@ router.post("/addAnnouncement", (req, res, next) => {
 
 router.put("/classes/:cid", (req, res, next) => {
   Class.findOneAndUpdate(
-    { _id: req.params.tid },
+    { _id: req.params.cid },
     req.body,
     { new: true },
     function (error, results) {
