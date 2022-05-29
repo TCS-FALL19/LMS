@@ -1,7 +1,9 @@
 # LMS
+
 A Responsive MERN Web LMS Application:
 
 # In This Instance
+
 The Teacher routes are developed here.
 Following are Teacher Routes:
 
@@ -20,8 +22,12 @@ Following are Teacher Routes:
 - Update Announcement
 - Delete Announcement
 
----
+The Student routes are developed here.
+Following are Student Routes:
 
+- Submit Assignment
+
+---
 
 <h3>Tools and Technologies:</h3>
 
@@ -32,5 +38,3 @@ Following are Teacher Routes:
   <li>Mongo DB</li>
   <li>Express Js</li>
 </ul>
-
-
