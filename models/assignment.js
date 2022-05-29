@@ -25,7 +25,11 @@ var AssignmentSchema = mongoose.Schema(
     },
     student_submissions: [
       {
-        std_id: Number,
+        std_id: {
+          type: Number,
+          required: true,
+        },
+
         filename: String,
         marks: Number,
       },
