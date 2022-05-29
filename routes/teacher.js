@@ -23,7 +23,7 @@ router.get("/", function (req, res, next) {
 
 router.post("/addQuiz", async (req, res, next) => {
 	try {
-		const quiz = new Quiz(req.body.quiz);
+		const quiz = new Quiz(req.body);
 		console.log(quiz);
 		const added = await quiz.save();
 		res.json(added);
@@ -64,7 +64,28 @@ router.post("/addAssign", upload.single('AttachedFile'), (req, res, next) => {
 })
 
 
-// GET Routes
+// PUT Routes
+
+// Teacher add marks to quizzes
+router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
+	const studID = req.params.sID;
+	const quizID = req.params.qID;
+	console.log(studID);
+	console.log(quizID);
+	const marks = req.body.marks;
+	console.log(marks)
+	
+	// Working by Abdul Moeed's code
+
+	// Quiz.findByIdAndUpdate({ _id: req.params.qID, "submissions.$.student":req.params.sID },
+	// { "$set": {"submissions.$.marks":req.body.marks} }, (err, result) => {
+	// 	if (err) {
+	// 		return next(err);
+	// 	}
+	// 	res.json(result);
+	// })
+
+});
 
 
 
