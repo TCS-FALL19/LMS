@@ -3,6 +3,7 @@ var multer = require('multer')
 const router = express.Router();
 const Quiz = require("../models/quiz");
 const Assignment = require("../models/assignment");
+const Announcement = require("../models/announcement");
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -66,6 +67,15 @@ router.post("/addAssign", upload.single('AttachedFile'), (req, res, next) => {
 
 // GET Routes
 
-
+router.post("/addAnnouncement", async (req, res, next) => {
+	try {
+		const announcement = new Announcement(req.body.announcement);
+		// console.log(announcement);
+		const added = await announcement.save();
+		res.json(added);
+	} catch (error) {
+		next(error.message);
+	}
+});
 
 module.exports = router;
