@@ -39,15 +39,17 @@ router.get("/teachers", (req, res, next) => {
 		});
 });
 
+//..................................................
+//Implemented by Hassan Afzal (FA17-BCS-031)
+//..................................................
+
 router.get("/students", (req, res, next) => {
-	Student.find()
-		.sort("name")
-		.exec(function (error, results) {
-			if (error) {
+	Student.find().sort("name").exec(function (error, results) {    //It will enlist and sort names of added Students
+			if (error) {    //In case of error
 				return next(error);
 			}
-			// Respond with valid data
-			res.json(results);
+			// Respond with valid data/result
+			res.json(results); //Response
 		});
 });
 
