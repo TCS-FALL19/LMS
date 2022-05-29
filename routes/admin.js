@@ -273,6 +273,9 @@ router.delete("/delstudent/:id", function (req, res, next) {
 	});
 });
 
+//----------ROUTE BY FAIQ SHAHZAD---------------------
+//Using deleteOne() function to Delete the announcement
+
 router.delete("/Announcement/:id", (req, res, next) => {
 	Announcement.deleteOne({ _id: req.params.id }, (error, result) => {
 		if (error) {
@@ -282,4 +285,8 @@ router.delete("/Announcement/:id", (req, res, next) => {
 	});
 });
 
+//----------------------------------------------------
+
 module.exports = router;
+
+
