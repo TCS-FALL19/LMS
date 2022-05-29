@@ -78,4 +78,14 @@ router.get("/quiz/:id", function (req, res, next) {
     .catch((err) => next(err));
 });
 
+// DELETE routes
+
+//Delete Quiz - FA19-BCS-034
+router.delete("/quiz/:id", function (req, res, next) {
+  Quiz.deleteOne({ _id: req.params.id }, function (err, result) {
+    if (err) return next(err);
+    res.json(result);
+  });
+});
+
 module.exports = router;
