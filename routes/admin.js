@@ -10,9 +10,17 @@ const { route } = require("express/lib/application");
 
 //GET Methods
 
+
+
+//................Implemented By Hiba Shafqat................
+//get dashboard route
+
 router.get("/", (req, res, next) => {
 	res.status(200).render("Admin", { title: "Admin" });
 });
+
+
+
 
 router.get("/classes", (req, res, next) => {
 	Class.find({})
@@ -25,6 +33,7 @@ router.get("/classes", (req, res, next) => {
 			res.json(results);
 		});
 });
+
 //..................................................
 //Implemented by Alishba Iftikhar
 //..................................................
@@ -38,6 +47,7 @@ router.get("/teachers", (req, res, next) => {
 			res.json(results);
 		});
 });
+
 
 router.get("/students", (req, res, next) => {
 	Student.find()
