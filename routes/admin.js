@@ -125,6 +125,8 @@ router.post("/addTeacher", function (req, res, next) {
 		.catch((err) => next(err));
 });
 
+//implemented by Momin Ali
+
 router.post("/addClass", function (req, res, next) {
 	Class.create(req.body)
 		.then(
