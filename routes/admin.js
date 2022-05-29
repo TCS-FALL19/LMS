@@ -19,6 +19,9 @@ router.get("/", (req, res, next) => {
   res.status(200).render("Admin", { title: "Admin" });
 });
 
+//..................................................
+//Implemented by Asaad Habib
+//..................................................
 
 
 
@@ -48,17 +51,16 @@ router.get("/teachers", (req, res, next) => {
   });
 });
 
+//Implemented by Hassan Afzal (FA17-BCS-031)
 
 router.get("/students", (req, res, next) => {
-  Student.find()
-    .sort("name")
-    .exec(function (error, results) {
-      if (error) {
-        return next(error);
-      }
-      // Respond with valid data
-      res.json(results);
-    });
+	Student.find().sort("name").exec(function (error, results) {    //It will enlist and sort names of added Students
+			if (error) {    //In case of error
+				return next(error);
+			}
+			// Respond with valid data/result
+			res.json(results); //Response
+		});
 });
 
 router.get("/classes/:cid", (req, res, next) => {
@@ -125,6 +127,8 @@ router.post("/addTeacher", function (req, res, next) {
     )
     .catch((err) => next(err));
 });
+
+//implemented by Momin Ali
 
 router.post("/addClass", function (req, res, next) {
   Class.create(req.body)
