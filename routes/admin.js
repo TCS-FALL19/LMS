@@ -145,7 +145,7 @@ router.post("/addClass", function (req, res, next) {
 router.post("/addStudent", function (req, res, next) {
   Student.create(req.body, (err, student) => {
     if (err) {
-      res.status(400).json({ msg: "Error" });
+      return res.status(400).json({ msg: "Error" });
     }
 
     console.log("Student has been Added ", student);
