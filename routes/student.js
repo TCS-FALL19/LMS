@@ -32,7 +32,6 @@ router.put(
 		if (!file) {
 			res.status(400).send("Something went wrong!");
 		}
-		// res.send(file.filename);
 		Assignment.findOneAndUpdate(
 			{ _id: req.body._id },
 			{
@@ -73,8 +72,6 @@ router.put("/updateContact", (req, res) => {
 
 
 router.put("/attemptquiz/:qID/:sID", async (req, res, next) => {
-  console.log(req.body.answer)
-
   Quiz.findOneAndUpdate({ _id: req.params.qID }, {
       "$push": {
         "submissions": {
@@ -92,6 +89,4 @@ router.put("/attemptquiz/:qID/:sID", async (req, res, next) => {
     });
 });
 
-
 module.exports = router;
-
