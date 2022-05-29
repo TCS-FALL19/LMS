@@ -68,4 +68,16 @@ router.post("/addAssign", upload.single('AttachedFile'), (req, res, next) => {
 
 
 
+// DELETE routes
+
+//Delete Quiz - FA19-BCS-034
+router.delete("/quiz/:id", function (req, res, next) {
+  Quiz.deleteOne({ _id: req.params.id }, function (err, result) {
+    if (err) return next(err);
+    res.json(result);
+  });
+});
+
+
+
 module.exports = router;
