@@ -10,9 +10,17 @@ const { route } = require("express/lib/application");
 
 //GET Methods
 
+
+
+//................Implemented By Hiba Shafqat................
+//get dashboard route
+
 router.get("/", (req, res, next) => {
 	res.status(200).render("Admin", { title: "Admin" });
 });
+
+
+
 
 router.get("/classes", (req, res, next) => {
 	Class.find({})
@@ -25,6 +33,7 @@ router.get("/classes", (req, res, next) => {
 			res.json(results);
 		});
 });
+
 //..................................................
 //Implemented by Alishba Iftikhar
 //..................................................
@@ -39,9 +48,7 @@ router.get("/teachers", (req, res, next) => {
 		});
 });
 
-//..................................................
 //Implemented by Hassan Afzal (FA17-BCS-031)
-//..................................................
 
 router.get("/students", (req, res, next) => {
 	Student.find().sort("name").exec(function (error, results) {    //It will enlist and sort names of added Students
@@ -186,7 +193,10 @@ router.put("/classes/:cid", (req, res, next) => {
 	);
 });
 
+// Implemented by Muhammad Bilal Haider
+	
 router.put("/teachers/:tid", (req, res, next) => {
+
 	Teacher.findOneAndUpdate(
 		{ _id: req.params.tid },
 		req.body,
@@ -200,7 +210,12 @@ router.put("/teachers/:tid", (req, res, next) => {
 	);
 });
 
+//Route Implemented by Arif Shahzad
+
 router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
+
+	// Assigns teacher to the class.
+
 	Class.findOneAndUpdate(
 		{ _id: req.params.cid },
 		{ teacher: req.params.tid },
