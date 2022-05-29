@@ -41,7 +41,7 @@ https://docs.google.com/spreadsheets/d/1VMdGGfDve8KiE3heea_rw7uxAFE9vu2ZLuxHy-8X
   <li>Node Js</li>
   <li>Mongo DB</li>
   <li>Express Js</li>
-  <li>Postman</li>
+  <li>Postman or Thunder client</li>
 </ul>
 
 
