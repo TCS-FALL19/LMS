@@ -12,26 +12,6 @@ router.get("/", (req, res, next) => {
   res.send("Head Dashboard");
 });
 
-// router.post("/results/addResult", async (req, res) => {
-//   const result_object = new Result(req.body);
-//   try {
-//     Result.create(result_object).then(
-//       (output) => {
-//         console.log("result is added");
-//         res.json(output);
-//       },
-//       (err) => {
-//         console.log(err);
-//         res.json(err);
-//       }
-//     );
-//     console.log(result_object);
-//   } catch (err) {
-//     res.json({
-//       status: err,
-//     });
-//   }
-// });
 
 router.get("/results/student/:id", (req, res) => {
   const student_id = req.params.id;
