@@ -64,6 +64,26 @@ router.post("/addAssign", upload.single('AttachedFile'), (req, res, next) => {
 	.catch((err) => next(err));
 })
 
+router.post("/addAnnouncement", async (req, res, next) => {
+	try {
+		const announcement = new Announcement(req.body.announcement);
+		// console.log(announcement);
+		const added = await announcement.save();
+		res.json(added);
+	} catch (error) {
+		next(error.message);
+	}
+});
+// DELETE routes
+
+//Delete Quiz - FA19-BCS-034
+router.delete("/quiz/:id", function (req, res, next) {
+	Quiz.deleteOne({ _id: req.params.id }, function (err, result) {
+		if (err) return next(err);
+		res.json(result);
+	})
+});
+
 
 // GET Routes
 
