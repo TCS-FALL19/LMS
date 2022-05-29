@@ -114,7 +114,10 @@ router.get("/Announcement", (req, res, next) => {
 
 //POST Methods
 
-router.post("/addTeacher", function (req, res, next) {
+//..................................................
+// Implemented by Aneesa Farooq (FA19-BCS-015)
+//..................................................
+router.post("/teacher", function (req, res, next) {
   Teacher.create(req.body)
     .then(
       (teacher) => {
