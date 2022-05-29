@@ -198,7 +198,12 @@ router.put("/teachers/:tid", (req, res, next) => {
 	);
 });
 
+//Route Implemented by Arif Shahzad
+
 router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
+
+	// Assigns teacher to the class.
+
 	Class.findOneAndUpdate(
 		{ _id: req.params.cid },
 		{ teacher: req.params.tid },
