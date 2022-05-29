@@ -1,23 +1,39 @@
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
-var assignment_schema = new mongoose.Schema({
-  questions: [String],
-  teacher: {
-    type: mongoose.Types.ObjectId,
-    ref: "Teacher",
-  },
-  class: String,
-  subject: String,
-  totalMarks: Number,
-  submissionDate: String,
-  submissions: {
-    student: {
-      type: mongoose.Types.ObjectId,
-      ref: "Student",
+var AssignmentSchema = mongoose.Schema(
+  {
+    teacher_id: {
+      type: Number,
+      required: true,
     },
-    answers: [String],
-    marks: Number,
+    filename: {
+      type: String,
+      required: true,
+    },
+    subject: {
+      type: String,
+      required: true,
+    },
+    totalMarks: {
+      type: Number,
+    },
+    deadline: {
+      type: Date, //  YYYY-MM-DD
+    },
+    description: {
+      type: String,
+    },
+    student_submissions: [
+      {
+        std_id: Number,
+        filename: String,
+        marks: Number,
+      },
+    ],
   },
-});
+  {
+    timestamps: true,
+  }
+);
 
-module.exports = mongoose.model("Assignment", assignment_schema);
+module.exports = mongoose.model("Assignment", AssignmentSchema);
