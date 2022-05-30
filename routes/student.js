@@ -23,6 +23,7 @@ router.get("/", (req, res, next) => {
 	res.send("Student Dashboard");
 });
 
+
 router.get("/:sid", (req, res, next) => {
 	Student.findById(req.params.sid).exec((err, result) => {
 		if (err) {
@@ -30,6 +31,7 @@ router.get("/:sid", (req, res, next) => {
 		}
 		res.json(result);
 	});
+
 });
 
 router.put(
