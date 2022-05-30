@@ -1,12 +1,13 @@
 const express = require("express");
 const multer = require("multer");
 const Quiz = require("../models/quiz");
+const Student = require("../models/student");
+const Assignment = require("../models/assignment");
+const Result = require("../models/result");
+const Announcement = require("../models/announcement");
 
 var router = express.Router();
 var Student = require("../models/student");
-
-const Assignment = require("../models/assignment");
-const Student = require("../models/student");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,16 +25,13 @@ router.get("/", (req, res, next) => {
   res.send("Student Dashboard");
 });
 
-
 router.get("/:sid", (req, res, next) => {
-
   Student.findById(req.params.sid).exec((err, result) => {
     if (err) {
       return next(err);
     }
     res.json(result);
   });
-
 });
 
 router.put(
@@ -135,20 +133,29 @@ router.get("/viewMarks/:id", async (req, res, next) => {
     next(error);
   }
 });
-router.get("/profile/:id", (req, res, next) => {
-	Student.findById(req.params.id)
-	.then(
-		(student) => {
-			res.statusCode = 200;
-			res.setHeader("Content-Type", "application/json");
-			res.json(student);
-		},
-		(err) => next(err)
-	)
-	.catch((err) => next(err)); 
 
-	
+// user profile
+router.get("/profile/:id", (req, res, next) => {
+  Student.findById(req.params.id)
+    .then(
+      (student) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(student);
+      },
+      (err) => next(err)
+    )
+    .catch((err) => next(err));
 });
 
+// view announcement
+router.get("/announcement/:aid", async (req, res, next) => {
+  try {
+    const announcement = await Announcement.findById(req.params.aid);
+    res.json(announcement);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
