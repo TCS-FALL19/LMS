@@ -3,6 +3,7 @@ var multer = require("multer");
 const router = express.Router();
 const Quiz = require("../models/quiz");
 const Assignment = require("../models/assignment");
+const Teacher = require("../models/teacher")
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -17,6 +18,17 @@ var upload = multer({ storage: storage });
 
 router.get("/", function (req, res, next) {
 	res.send("hello teacher");
+});
+
+//Display teacher data on dashboard (FA-19/BCS/018)
+router.get("/:tid", (req, res, next) => {
+	Teacher.findById(req.params.tid).exec((err,result) => {
+		if (err)
+		{
+			return next(err);
+		}
+		res.json(result);
+	})
 });
 
 // POST routes
@@ -79,6 +91,8 @@ router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
 		.catch((err) => next(err));
 });
 
+
+//ADD MARKS  <<<< FA19-BCS-001
 // Teacher add marks to quizzes
 router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
 	const studID = req.params.sID;
@@ -93,6 +107,25 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
 			{ $set: { "submissions.$.marks": marks } }
 		);
 		res.json(attemptedQuizzes?.submissions);
+	} catch (err) {
+		next(err);
+	}
+});
+// Teacher add marks to Assignment 
+router.put("/assignment/addMarks/:aID/:sID", async (req, res, next) => {
+	const studID = req.params.sID;
+	const assignmntID = req.params.aID;
+	const marks = req.body.marks;
+	try {
+		const attemptedAssignments = await Assignment.findOneAndUpdate(
+			{
+				_id: assignmntID,
+				student_submissions: { $elemMatch: { student_id: studID } },
+			},
+			{ $set: { "student_submissions.$.marks": marks } }
+		);
+		console.log(attemptedAssignments);
+		res.json(attemptedAssignments?.student_submissions);
 	} catch (err) {
 		next(err);
 	}
