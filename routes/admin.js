@@ -124,14 +124,6 @@ router.get("/Announcement", (req, res, next) => {
   });
 });
 
-//................Implemented By Hasan Mahmood (FA19-BCS-025)................
-
-router.get("/", (req, res, next) => {
-  res.status(200).render("Head", { title: "Head" });
-});
-
-//..................................................
-
 
 //POST Methods
 
