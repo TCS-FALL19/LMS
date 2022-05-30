@@ -100,7 +100,7 @@ router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
 router.get('/viewSubmissions/:aid', async function(req, res, next) {
   const searchId = req.params.aid
   const records = await Assignment.find({ _id: searchId }).select('-_id student_submissions');
-
+  // Requires /downloadAssignment Route
   const mountAddr = req.protocol + '://' + req.get('host') +'/teacher/downloadAssignment/'
 
   var filelinks = records[0].student_submissions.map((item, idx) => {
@@ -130,7 +130,7 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
     next(err);
   }
 });
-// Teacher add marks to Assignment 
+// Teacher add marks to Assignment <<<< FA19-BCS-001
 router.put("/assignment/addMarks/:aID/:sID", async (req, res, next) => {
 	const studID = req.params.sID;
 	const assignmntID = req.params.aID;
