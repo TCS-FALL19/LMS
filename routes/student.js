@@ -7,7 +7,6 @@ const Result = require("../models/result");
 const Announcement = require("../models/announcement");
 
 var router = express.Router();
-var Student = require("../models/student");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
