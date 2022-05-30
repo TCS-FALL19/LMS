@@ -11,7 +11,18 @@ var Announcement = require("../models/announcement");
 router.get("/", (req, res, next) => {
   res.send("Head Dashboard");
 });
-
+router.get('/classes/:id', function(req, res, next) {
+    Class.find({ _id: req.params.id }).populate('teacher').populate('students.sid').exec(function(error, results) {
+        if (error) {
+            return next(error);
+        }
+        else{
+              // Respond with valid data
+                 res.json(results);
+}
+        
+    });
+});
 
 router.get("/results/student/:id", (req, res) => {
   const student_id = req.params.id;
