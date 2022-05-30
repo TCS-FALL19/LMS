@@ -64,6 +64,16 @@ router.put(
   }
 );
 
+router.get("/assignment/:aid", (req, res, next) => {
+  Assignment.findById(req.params.aid, function (error, results) {
+    if (error) {
+      return next(error);
+    }
+    // Respond with valid data
+    res.json(results);
+  });
+});
+
 router.put("/updateContact", (req, res) => {
   Student.findOneAndUpdate(
     { _id: req.body._id },
