@@ -64,6 +64,8 @@ router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
 		.catch((err) => next(err));
 });
 
+
+//ADD MARKS  <<<< FA19-BCS-001
 // Teacher add marks to quizzes
 router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
 	const studID = req.params.sID;
@@ -82,6 +84,25 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
 		next(err);
 	}
 
+});
+// Teacher add marks to Assignment 
+router.put("/assignment/addMarks/:aID/:sID", async (req, res, next) => {
+	const studID = req.params.sID;
+	const assignmntID = req.params.aID;
+	const marks = req.body.marks;
+	try {
+		const attemptedAssignments = await Assignment.findOneAndUpdate(
+			{
+				_id: assignmntID,
+				student_submissions: { $elemMatch: { student_id: studID } },
+			},
+			{ $set: { "student_submissions.$.marks": marks } }
+		);
+		console.log(attemptedAssignments);
+		res.json(attemptedAssignments?.student_submissions);
+	} catch (err) {
+		next(err);
+	}
 });
 
 // GET Routes

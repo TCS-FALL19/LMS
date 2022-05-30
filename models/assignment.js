@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 var AssignmentSchema = mongoose.Schema(
   {
     teacher_id: {
-      type: Number,
+      type: mongoose.Types.ObjectId,
       required: true,
     },
     filename: {
@@ -25,8 +25,8 @@ var AssignmentSchema = mongoose.Schema(
     },
     student_submissions: [
       {
-        std_id: {
-          type: Number,
+        student_id:  {
+          type: mongoose.Types.ObjectId,
           required: true,
         },
 

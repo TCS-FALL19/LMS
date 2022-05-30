@@ -33,7 +33,7 @@ router.put("/submitAssignment", upload.single("AttachedFile"), (req, res) => {
     {
       $push: {
         student_submissions: {
-          std_id: req.body.std_id,
+          student_id: req.body.student_id,
           filename: file.filename,
           marks: 0,
         },
