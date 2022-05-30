@@ -106,7 +106,7 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
       },
       { $set: { "submissions.$.marks": marks } }
     );
-    res.json(attemptedQuizzes);
+    res.json(attemptedQuizzes?.submissions);
   } catch (err) {
     next(err);
   }
