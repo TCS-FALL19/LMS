@@ -18,6 +18,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
+router.get("/", (req, res, next) => {
+  console.log(req.body.answer)
+  res.send("Student Dashboard");
+});
+
 router.get("/:sid", (req, res, next) => {
 	Student.findById(req.params.sid).exec((err,result) => {
 		if (err)
@@ -27,7 +32,6 @@ router.get("/:sid", (req, res, next) => {
 		res.json(result);
 	})
 });
-
 
 router.put(
 	"/submitAssignment",
@@ -84,7 +88,7 @@ router.put("/attemptquiz/:qID/:sID", async (req, res, next) => {
             "student": req.params.sID,
             "answers":req.body.answer,
             "marks":0
-        }
+		}
       }
     }, { new: true, upsert: false },
     function(error, results) {
