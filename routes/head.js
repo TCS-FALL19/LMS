@@ -94,4 +94,11 @@ router.get('/head/result/class', function(req,res,next){
 	})
 });
 
+//................Implemented By Hasan Mahmood (FA19-BCS-025)................
+//get dashboard route
+
+router.get("/", (req, res, next) => {
+	res.json({message: "head dashboard"});
+  });
+
 module.exports = router;
