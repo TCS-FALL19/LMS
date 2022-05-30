@@ -174,7 +174,7 @@ router.post("/addStudent", function (req, res, next) {
     res.json(student);
   });
 });
-
+//implemented by Abdul Rafay , Fa18-bcs-002
 router.post("/addAnnouncement", (req, res, next) => {
   Announcement.create(req.body)
     .then(
