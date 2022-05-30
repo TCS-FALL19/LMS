@@ -5,8 +5,8 @@ var Student = require("../models/student");
 router.get("/", (req, res, next) => {
 	res.send("Student Dashboard");
 });
-router.get("/profile", (req, res, next) => {
-	Teacher.findById(req.params.id)
+router.get("/profile/:id", (req, res, next) => {
+	Student.findById(req.params.id)
 	.then(
 		(student) => {
 			res.statusCode = 200;
@@ -17,7 +17,7 @@ router.get("/profile", (req, res, next) => {
 	)
 	.catch((err) => next(err)); 
 
-	res.send("Student view profile");
+	
 });
 
 
