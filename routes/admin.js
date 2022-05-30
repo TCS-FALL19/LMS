@@ -33,10 +33,6 @@ router.get("/classes", (req, res, next) => {
     });
 });
 
-
-
-
-
 //..................................................
 //Implemented by Alishba Iftikhar
 //..................................................
@@ -123,7 +119,6 @@ router.get("/Announcement", (req, res, next) => {
     res.json(result);
   });
 });
-
 
 //POST Methods
 
@@ -247,7 +242,6 @@ router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
     }
   );
 });
-
 
 //Route Implemented by Abdul Arham Aamir
 

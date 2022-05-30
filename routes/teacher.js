@@ -34,9 +34,9 @@ router.get("/:tid", (req, res, next) => {
 });
 
 // POST routes
-
+// Implemented my yours truly abdul moeed ibn humayun al athari
 router.post("/addQuiz", async (req, res, next) => {
- try {
+  try {
     const quiz = new Quiz(req.body.quiz);
     // console.log(quiz);
     const added = await quiz.save();
@@ -45,10 +45,8 @@ router.post("/addQuiz", async (req, res, next) => {
     next(error.message);
   }
 });
-}
 
-  
-  // Implemented by <Muhammad Akif Anees>
+// Implemented by <Muhammad Akif Anees>
 router.put("/updatecontactinfo/:tid", async (req, res, next) => {
   const updatedname = req.body.name;
   const updateddesig = req.body.designation;
@@ -64,9 +62,6 @@ router.put("/updatecontactinfo/:tid", async (req, res, next) => {
     next(error);
   }
 });
-  
-  
-  
 
 // View Quiz routes
 router.get("/viewQuiz/:qid", (req, res, next) => {
@@ -199,6 +194,5 @@ router.delete("/quiz/:id", function (req, res, next) {
     res.json(result);
   });
 });
-
 
 module.exports = router;
