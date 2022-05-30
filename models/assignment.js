@@ -4,7 +4,7 @@ var AssignmentSchema = mongoose.Schema(
   {
     teacher_id: {
       type: mongoose.Types.ObjectId,
-      required: true,
+      ref: 'Teacher',
     },
     filename: {
       type: String,
@@ -27,7 +27,7 @@ var AssignmentSchema = mongoose.Schema(
       {
         student_id:  {
           type: mongoose.Types.ObjectId,
-          required: true,
+          ref: 'Student',
         },
 
         filename: String,
