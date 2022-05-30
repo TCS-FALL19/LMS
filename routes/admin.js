@@ -107,6 +107,9 @@ router.get("/students/:sid", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+//..................................................
+//Implemented by Hafiz Talha Ashraf  (SP19-BCS-081)
+//..................................................
 router.get("/Announcement", (req, res, next) => {
   Announcement.find().exec((err, result) => {
     if (err) {
