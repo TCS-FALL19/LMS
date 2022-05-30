@@ -34,22 +34,7 @@ router.get("/classes", (req, res, next) => {
 });
 
 
-//..................................................
-//Implemented by Hafeez Ullah
-//..................................................
 
-router.get('/', function(req, res){
-  res.send('Index');
-})
-
-
-//..................................................
-//Implemented by Hamza Riaz Khan
-//..................................................
-
-router.get('/error', function(req, res){
-  res.send('This is the Error Page!');
-})
 
 
 //..................................................
