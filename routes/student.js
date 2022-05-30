@@ -4,6 +4,7 @@ const Quiz = require("../models/quiz");
 const Student = require("../models/student");
 const Assignment = require("../models/assignment");
 const Result = require("../models/result");
+const Announcement = require("../models/announcement");
 
 var router = express.Router();
 var Student = require("../models/student");
@@ -132,6 +133,8 @@ router.get("/viewMarks/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+// user profile
 router.get("/profile/:id", (req, res, next) => {
   Student.findById(req.params.id)
     .then(
@@ -143,6 +146,16 @@ router.get("/profile/:id", (req, res, next) => {
       (err) => next(err)
     )
     .catch((err) => next(err));
+});
+
+// view announcement
+router.get("/announcement/:aid", async (req, res, next) => {
+  try {
+    const announcement = await Announcement.findById(req.params.aid);
+    res.json(announcement);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;
