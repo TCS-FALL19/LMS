@@ -7,7 +7,6 @@ const Result = require("../models/result");
 const Announcement = require("../models/announcement");
 
 var router = express.Router();
-var Student = require("../models/student");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -81,6 +80,7 @@ router.put("/updateContact", (req, res) => {
   );
 });
 
+//attempt quiz by FA19-BCS-013
 router.put("/attemptquiz/:qID/:sID", async (req, res, next) => {
   Quiz.findOneAndUpdate(
     { _id: req.params.qID },
