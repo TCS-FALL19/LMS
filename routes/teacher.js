@@ -1,10 +1,10 @@
 const express = require("express");
 var multer = require("multer");
 const router = express.Router();
-var path = require('path');
+var path = require("path");
 const Quiz = require("../models/quiz");
 const Assignment = require("../models/assignment");
-const Teacher = require("../models/teacher")
+const Teacher = require("../models/teacher");
 var Announcement = require("../models/announcement");
 
 var storage = multer.diskStorage({
@@ -24,13 +24,12 @@ router.get("/", function (req, res, next) {
 
 //Display teacher data on dashboard (FA-19/BCS/018)
 router.get("/:tid", (req, res, next) => {
-	Teacher.findById(req.params.tid).exec((err,result) => {
-		if (err)
-		{
-			return next(err);
-		}
-		res.json(result);
-	})
+  Teacher.findById(req.params.tid).exec((err, result) => {
+    if (err) {
+      return next(err);
+    }
+    res.json(result);
+  });
 });
 
 // POST routes
@@ -94,21 +93,23 @@ router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
     .catch((err) => next(err));
 });
 
-
 // Abdullah M. Shafique (FA19-BCS-007)
 // Teacher View Submissions of students for their assignments
-router.get('/viewSubmissions/:aid', async function(req, res, next) {
-  const searchId = req.params.aid
-  const records = await Assignment.find({ _id: searchId }).select('-_id student_submissions');
+router.get("/viewSubmissions/:aid", async function (req, res, next) {
+  const searchId = req.params.aid;
+  const records = await Assignment.find({ _id: searchId }).select(
+    "-_id student_submissions"
+  );
   // Requires /downloadAssignment Route
-  const mountAddr = req.protocol + '://' + req.get('host') +'/teacher/downloadAssignment/'
+  const mountAddr =
+    req.protocol + "://" + req.get("host") + "/teacher/downloadAssignment/";
 
   var filelinks = records[0].student_submissions.map((item, idx) => {
-      return mountAddr+item.filename
-  })
-  console.log(filelinks)
+    return mountAddr + item.filename;
+  });
+  console.log(filelinks);
 
-  res.send(filelinks)
+  res.send(filelinks);
 });
 
 //ADD MARKS  <<<< FA19-BCS-001
@@ -132,22 +133,22 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
 });
 // Teacher add marks to Assignment <<<< FA19-BCS-001
 router.put("/assignment/addMarks/:aID/:sID", async (req, res, next) => {
-	const studID = req.params.sID;
-	const assignmntID = req.params.aID;
-	const marks = req.body.marks;
-	try {
-		const attemptedAssignments = await Assignment.findOneAndUpdate(
-			{
-				_id: assignmntID,
-				student_submissions: { $elemMatch: { student_id: studID } },
-			},
-			{ $set: { "student_submissions.$.marks": marks } }
-		);
-		console.log(attemptedAssignments);
-		res.json(attemptedAssignments?.student_submissions);
-	} catch (err) {
-		next(err);
-	}
+  const studID = req.params.sID;
+  const assignmntID = req.params.aID;
+  const marks = req.body.marks;
+  try {
+    const attemptedAssignments = await Assignment.findOneAndUpdate(
+      {
+        _id: assignmntID,
+        student_submissions: { $elemMatch: { student_id: studID } },
+      },
+      { $set: { "student_submissions.$.marks": marks } }
+    );
+    console.log(attemptedAssignments);
+    res.json(attemptedAssignments?.student_submissions);
+  } catch (err) {
+    next(err);
+  }
 });
 
 // GET Routes
