@@ -10,7 +10,6 @@ router.put("/updatecontactinfo/:tid", async (req, res, next) => {
   const updatedname = req.body.name;
   const updateddesig = req.body.designation;
   console.log(updatedname, updateddesig);
-
   try {
     const updated = await Teacher.findOneAndUpdate(
       { _id: req.params.tid },
