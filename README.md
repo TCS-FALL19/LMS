@@ -2,7 +2,7 @@
 A Responsive MERN Web LMS Application:
 
 # In This Instance
-The Admin routes are completed.
+The Admin routes are to be Implemented.
 Following are Admin Routes:
 
 - Show Dashboard
@@ -26,6 +26,12 @@ Following are Admin Routes:
 
 ---
 
+```
+To View Respective Routes
+
+https://docs.google.com/spreadsheets/d/1VMdGGfDve8KiE3heea_rw7uxAFE9vu2ZLuxHy-8X8qo/edit#gid=226080548
+```
+
 
 <h3>Tools and Technologies:</h3>
 
@@ -35,6 +41,8 @@ Following are Admin Routes:
   <li>Node Js</li>
   <li>Mongo DB</li>
   <li>Express Js</li>
+  <li>Postman or Thunder client</li>
 </ul>
+
 
 
