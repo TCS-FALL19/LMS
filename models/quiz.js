@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const quizSchema = new Schema({
-	questions: [String],
+	questions: [{type: String}],
 	teacher: {
 		type: mongoose.Types.ObjectId,
 		ref: "Teacher",
