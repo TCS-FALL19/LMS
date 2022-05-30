@@ -12,7 +12,7 @@
     "start": "node ./bin/www",
 
 
-    "dev": "nodemon ./bin/www"
+    "dev": "node ./bin/www"
 
   },
 

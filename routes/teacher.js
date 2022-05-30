@@ -11,13 +11,12 @@ var storage = multer.diskStorage({
 	filename: function (req, file, cb) {
 		cb(null, file.originalname);
 	},
-
 });
 
 var upload = multer({ storage: storage });
 
 router.get("/", function (req, res, next) {
-  res.status(200).render("Teacher", { title: "Teacher" });
+  res.send("hello teacher");
 });
 
 // POST routes
@@ -31,6 +30,21 @@ router.post("/addQuiz", async (req, res, next) => {
   } catch (error) {
     next(error.message);
   }
+});
+
+// View Quiz routes
+router.get("/viewQuiz/:qid", (req, res, next) => {
+  console.log(req.params.qid);
+  Quiz.findById(req.params.qid)
+    .then(
+      (quiz) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(quiz);
+      },
+      (err) => next(err)
+    )
+    .catch((err) => next(err));
 });
 
 // Teacher Uploads Assignment upload.single('AttachedFile')
@@ -50,6 +64,7 @@ router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
 		totalMarks: req.body.totalMarks,
 		deadline: req.body.deadline,
 		filename: file.originalname,
+		class: req.body.class,
 		description: req.body.description,
 	})
 		.then(
@@ -81,33 +96,31 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
-
 });
 
 // GET Routes
 //View attempted quiz - FA19-BCS-033
 router.get("/quiz/:id", function (req, res, next) {
-  Quiz.findById(req.params.id)
-    .then(
-      (result) => {
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.json(result);
-      },
-      (err) => next(err)
-    )
-    .catch((err) => next(err));
+	Quiz.findById(req.params.id)
+		.then(
+			(result) => {
+				res.statusCode = 200;
+				res.setHeader("Content-Type", "application/json");
+				res.json(result);
+			},
+			(err) => next(err)
+		)
+		.catch((err) => next(err));
 });
-
 
 // DELETE routes
 
 //Delete Quiz - FA19-BCS-034
 router.delete("/quiz/:id", function (req, res, next) {
-  Quiz.deleteOne({ _id: req.params.id }, function (err, result) {
-    if (err) return next(err);
-    res.json(result);
-  });
+	Quiz.deleteOne({ _id: req.params.id }, function (err, result) {
+		if (err) return next(err);
+		res.json(result);
+	});
 });
 
 module.exports = router;

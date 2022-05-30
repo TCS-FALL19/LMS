@@ -6,7 +6,7 @@ const classSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	teacherSche: {
+	teacher: {
 		type: mongoose.Types.ObjectId,
 		ref: "Teacher",
 	},
