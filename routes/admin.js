@@ -82,7 +82,7 @@ router.get("/classes/:cid", (req, res, next) => {
 });
 
 router.get("/teachers/:tid", (req, res, next) => {
-  Teacher.findById(req.params.id)
+  Teacher.findById(req.params.tid)
     .then(
       (teacher) => {
         res.statusCode = 200;
@@ -95,7 +95,7 @@ router.get("/teachers/:tid", (req, res, next) => {
 });
 
 router.get("/students/:sid", (req, res, next) => {
-  Student.findById(req.params.id)
+  Student.findById(req.params.sid)
     .then(
       (student) => {
         res.statusCode = 200;
