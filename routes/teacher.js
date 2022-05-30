@@ -21,7 +21,7 @@ router.get("/", function (req, res, next) {
 });
 
 //Display teacher data on dashboard (FA-19/BCS/018)
-router.get("/teacher/:tid", (req, res, next) => {
+router.get("/:tid", (req, res, next) => {
 	Teacher.findById(req.params.tid).exec((err,result) => {
 		if (err)
 		{
