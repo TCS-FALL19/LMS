@@ -82,7 +82,7 @@ router.get("/classes/:cid", (req, res, next) => {
 });
 
 router.get("/teachers/:tid", (req, res, next) => {
-  Teacher.findById(req.params.id)
+  Teacher.findById(req.params.tid)
     .then(
       (teacher) => {
         res.statusCode = 200;
@@ -95,7 +95,7 @@ router.get("/teachers/:tid", (req, res, next) => {
 });
 
 router.get("/students/:sid", (req, res, next) => {
-  Student.findById(req.params.id)
+  Student.findById(req.params.sid)
     .then(
       (student) => {
         res.statusCode = 200;
@@ -173,13 +173,13 @@ router.post("/addStudent", function (req, res, next) {
     if (err) {
       res.status(400).json({ msg: "Error" });
     }
-
     console.log("Student has been Added ", student);
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
     res.json(student);
   });
 });
+
 //implemented by Abdul Rafay , Fa18-bcs-002
 router.post("/addAnnouncement", (req, res, next) => {
   Announcement.create(req.body)
@@ -199,7 +199,7 @@ router.post("/addAnnouncement", (req, res, next) => {
 
 router.put("/classes/:cid", (req, res, next) => {
   Class.findOneAndUpdate(
-    { _id: req.params.tid },
+    { _id: req.params.cid },
     req.body,
     { new: true },
     function (error, results) {
@@ -231,7 +231,6 @@ router.put("/teachers/:tid", (req, res, next) => {
 
 router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
   // Assigns teacher to the class.
-
   Class.findOneAndUpdate(
     { _id: req.params.cid },
     { teacher: req.params.tid },

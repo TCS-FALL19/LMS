@@ -1,4 +1,5 @@
 # LMS
+
 A Responsive MERN Web LMS Application:
 
 # In This Instance
@@ -24,14 +25,16 @@ Following are Admin Routes:
 - Modify Announcement
 - Delete Announcement
 
----
+The Student routes are developed here.
+Following are Student Routes:
+
+- Submit Assignment
 
 ```
 To View Respective Routes
 
 https://docs.google.com/spreadsheets/d/1VMdGGfDve8KiE3heea_rw7uxAFE9vu2ZLuxHy-8X8qo/edit#gid=226080548
 ```
-
 
 <h3>Tools and Technologies:</h3>
 
@@ -43,6 +46,3 @@ https://docs.google.com/spreadsheets/d/1VMdGGfDve8KiE3heea_rw7uxAFE9vu2ZLuxHy-8X
   <li>Express Js</li>
   <li>Postman or Thunder client</li>
 </ul>
-
-
-
