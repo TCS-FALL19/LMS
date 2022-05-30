@@ -1,4 +1,5 @@
 const express = require("express");
+
 var multer = require("multer");
 const router = express.Router();
 var path = require("path");
@@ -35,7 +36,7 @@ router.get("/:tid", (req, res, next) => {
 // POST routes
 
 router.post("/addQuiz", async (req, res, next) => {
-  try {
+ try {
     const quiz = new Quiz(req.body.quiz);
     // console.log(quiz);
     const added = await quiz.save();
@@ -44,6 +45,28 @@ router.post("/addQuiz", async (req, res, next) => {
     next(error.message);
   }
 });
+}
+
+  
+  // Implemented by <Muhammad Akif Anees>
+router.put("/updatecontactinfo/:tid", async (req, res, next) => {
+  const updatedname = req.body.name;
+  const updateddesig = req.body.designation;
+  console.log(updatedname, updateddesig);
+  try {
+    const updated = await Teacher.findOneAndUpdate(
+      { _id: req.params.tid },
+      { $set: { name: updatedname, designation: updateddesig } }
+    );
+    console.log(updated);
+    res.json(updated);
+  } catch (error) {
+    next(error);
+  }
+});
+  
+  
+  
 
 // View Quiz routes
 router.get("/viewQuiz/:qid", (req, res, next) => {
@@ -131,6 +154,7 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
     next(err);
   }
 });
+
 // Teacher add marks to Assignment <<<< FA19-BCS-001
 router.put("/assignment/addMarks/:aID/:sID", async (req, res, next) => {
   const studID = req.params.sID;
@@ -175,5 +199,6 @@ router.delete("/quiz/:id", function (req, res, next) {
     res.json(result);
   });
 });
+
 
 module.exports = router;
