@@ -92,7 +92,6 @@ router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
 });
 
 
-//ADD MARKS  <<<< FA19-BCS-001
 // Teacher add marks to quizzes
 router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
   const studID = req.params.sID;
@@ -111,7 +110,7 @@ router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
     next(err);
   }
 });
-// Teacher add marks to Assignment 
+// Teacher add marks to Assignment FA19-BCS-001
 router.put("/assignment/addMarks/:aID/:sID", async (req, res, next) => {
 	const studID = req.params.sID;
 	const assignmntID = req.params.aID;
