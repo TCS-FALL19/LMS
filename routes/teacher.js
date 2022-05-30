@@ -1,9 +1,11 @@
 const express = require("express");
 var multer = require("multer");
 const router = express.Router();
+var path = require('path');
 const Quiz = require("../models/quiz");
 const Assignment = require("../models/assignment");
 const Teacher = require("../models/teacher")
+var Announcement = require("../models/announcement");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -60,6 +62,7 @@ router.get("/viewQuiz/:qid", (req, res, next) => {
 });
 
 // Teacher Uploads Assignment upload.single('AttachedFile')
+// Abdullah Mohammad Shafique (FA19-BCS-007)
 router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
   const file = req.file;
   console.log(file.originalname);
@@ -92,8 +95,24 @@ router.post("/addAssign", upload.single("AttachedFile"), (req, res, next) => {
 });
 
 
-//ADD MARKS 
-// Teacher add marks to quizzes <<<< FA19-BCS-036
+// Abdullah M. Shafique (FA19-BCS-007)
+// Teacher View Submissions of students for their assignments
+router.get('/viewSubmissions/:aid', async function(req, res, next) {
+  const searchId = req.params.aid
+  const records = await Assignment.find({ _id: searchId }).select('-_id student_submissions');
+  // Requires /downloadAssignment Route
+  const mountAddr = req.protocol + '://' + req.get('host') +'/teacher/downloadAssignment/'
+
+  var filelinks = records[0].student_submissions.map((item, idx) => {
+      return mountAddr+item.filename
+  })
+  console.log(filelinks)
+
+  res.send(filelinks)
+});
+
+//ADD MARKS  <<<< FA19-BCS-001
+// Teacher add marks to quizzes
 router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
   const studID = req.params.sID;
   const quizID = req.params.qID;
