@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 
 var AssignmentSchema = mongoose.Schema(
+
 	{
 		teacher_id: {
 			type: mongoose.Types.ObjectId,

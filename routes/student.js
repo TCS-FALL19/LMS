@@ -6,6 +6,7 @@ const Assignment = require("../models/assignment");
 const Result = require("../models/result");
 
 var router = express.Router();
+var Student = require("../models/student");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -102,7 +103,7 @@ router.put("/attemptquiz/:qID/:sID", async (req, res, next) => {
 });
 
 // view both quiz and assignment marks for a specific subject
-router.get("/getMarks/:id", async (req, res, next) => {
+router.get("/viewMarks/:id", async (req, res, next) => {
   const sID = req.params.id;
   const subject = req.body.subject;
   try {
@@ -131,18 +132,6 @@ router.get("/getMarks/:id", async (req, res, next) => {
     next(error);
   }
 });
-
-// get result
-router.get("/getResult/:id", async (req, res, next) => {
-  const sID = req.params.id;
-  try {
-    const result = await Result.find({ student: sID }).populate("student");
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-});
-
 router.get("/profile/:id", (req, res, next) => {
   Student.findById(req.params.id)
     .then(
