@@ -10,9 +10,16 @@ const { route } = require("express/lib/application");
 
 //GET Methods
 
+//................Implemented By Hiba Shafqat................
+//get dashboard route
+
 router.get("/", (req, res, next) => {
-  res.send("Admin Dashboard");
+  res.status(200).render("Admin", { title: "Admin" });
 });
+
+//..................................................
+//Implemented by Asaad Habib
+//..................................................
 
 router.get("/classes", (req, res, next) => {
   Class.find({})
@@ -26,6 +33,10 @@ router.get("/classes", (req, res, next) => {
     });
 });
 
+//..................................................
+//Implemented by Alishba Iftikhar
+//..................................................
+
 router.get("/teachers", (req, res, next) => {
   Teacher.find()
     .sort("name")
@@ -38,18 +49,25 @@ router.get("/teachers", (req, res, next) => {
     });
 });
 
+//Implemented by Hassan Afzal (FA17-BCS-031)
+
 router.get("/students", (req, res, next) => {
   Student.find()
     .sort("name")
     .exec(function (error, results) {
+      //It will enlist and sort names of added Students
       if (error) {
+        //In case of error
         return next(error);
       }
-      // Respond with valid data
-      res.json(results);
+      // Respond with valid data/result
+      res.json(results); //Response
     });
 });
 
+//..................................................
+//Implemented by Ahmad Jamal (FA19-BCS-099)
+//..................................................
 router.get("/classes/:cid", (req, res, next) => {
   Class.find({ _id: req.params.cid })
     .populate("teacher")
@@ -64,7 +82,7 @@ router.get("/classes/:cid", (req, res, next) => {
 });
 
 router.get("/teachers/:tid", (req, res, next) => {
-  Teacher.findById(req.params.id)
+  Teacher.findById(req.params.tid)
     .then(
       (teacher) => {
         res.statusCode = 200;
@@ -77,7 +95,7 @@ router.get("/teachers/:tid", (req, res, next) => {
 });
 
 router.get("/students/:sid", (req, res, next) => {
-  Student.findById(req.params.id)
+  Student.findById(req.params.sid)
     .then(
       (student) => {
         res.statusCode = 200;
@@ -89,6 +107,9 @@ router.get("/students/:sid", (req, res, next) => {
     .catch((err) => next(err));
 });
 
+//..................................................
+//Implemented by Hafiz Talha Ashraf  (SP19-BCS-081)
+//..................................................
 router.get("/Announcement", (req, res, next) => {
   Announcement.find().exec((err, result) => {
     if (err) {
@@ -101,7 +122,10 @@ router.get("/Announcement", (req, res, next) => {
 
 //POST Methods
 
-router.post("/addTeacher", function (req, res, next) {
+//..................................................
+// Implemented by Aneesa Farooq (FA19-BCS-015)
+//..................................................
+router.post("/teacher", function (req, res, next) {
   Teacher.create(req.body)
     .then(
       (teacher) => {
@@ -114,6 +138,8 @@ router.post("/addTeacher", function (req, res, next) {
     )
     .catch((err) => next(err));
 });
+
+//implemented by Momin Ali
 
 router.post("/addClass", function (req, res, next) {
   Class.create(req.body)
@@ -140,12 +166,13 @@ router.post("/addClass", function (req, res, next) {
 //   .catch((err) => next(err));
 // })
 
+//Implemented by Hanzla Abbasi (FA18-BCS-029)
+
 router.post("/addStudent", function (req, res, next) {
   Student.create(req.body, (err, student) => {
     if (err) {
       res.status(400).json({ msg: "Error" });
     }
-
     console.log("Student has been Added ", student);
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
@@ -153,6 +180,7 @@ router.post("/addStudent", function (req, res, next) {
   });
 });
 
+//implemented by Abdul Rafay , Fa18-bcs-002
 router.post("/addAnnouncement", (req, res, next) => {
   Announcement.create(req.body)
     .then(
@@ -183,6 +211,8 @@ router.put("/classes/:cid", (req, res, next) => {
   );
 });
 
+// Implemented by Muhammad Bilal Haider
+
 router.put("/teachers/:tid", (req, res, next) => {
   Teacher.findOneAndUpdate(
     { _id: req.params.tid },
@@ -197,7 +227,10 @@ router.put("/teachers/:tid", (req, res, next) => {
   );
 });
 
+//Route Implemented by Arif Shahzad
+
 router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
+  // Assigns teacher to the class.
   Class.findOneAndUpdate(
     { _id: req.params.cid },
     { teacher: req.params.tid },
@@ -209,6 +242,9 @@ router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
     }
   );
 });
+
+
+//Route Implemented by Abdul Arham Aamir
 
 router.put("/assignStudent/:cid/:sid", (req, res, next) => {
   Class.findOneAndUpdate(
@@ -229,6 +265,11 @@ router.put("/assignStudent/:cid/:sid", (req, res, next) => {
     }
   );
 });
+//-------------------------------------------------------------
+
+//..................................................
+//Implemented by Muhammad Ahmed (FA19-BCS-041)
+//..................................................
 
 router.put("/Announcement/:id", (req, res, next) => {
   Announcement.findOneAndUpdate(
@@ -246,7 +287,21 @@ router.put("/Announcement/:id", (req, res, next) => {
 
 //DELETE methods
 
-router.delete("/delteacher/:id", function (req, res, next) {
+//Implemented by Muhammad Ashar Ayub (FA18-BCS-014)
+router.delete("/student/:id", function (req, res, next) {
+  //finding the specific student document with student id and deleting it
+  Student.deleteOne({ _id: req.params.id }, function (error, results) {
+    if (error) {
+      //returning in case of error
+      return next(error);
+    }
+    //sending results back to client if operation is successful
+    res.json(results);
+  });
+}); //Muhammad Ashar Ayub
+
+// Muhammad Sarmad Qadeer (SP19-BCS-037)
+router.delete("/teacher/:id", function (req, res, next) {
   Teacher.deleteOne({ _id: req.params.id }, function (error, results) {
     if (error) {
       return next(error);
@@ -255,6 +310,7 @@ router.delete("/delteacher/:id", function (req, res, next) {
   });
 });
 
+// Implemented by Ahsan Rasheed
 router.delete("/delclass/:id", function (req, res, next) {
   Class.deleteOne({ _id: req.params.id }, function (error, results) {
     if (error) {
@@ -264,14 +320,8 @@ router.delete("/delclass/:id", function (req, res, next) {
   });
 });
 
-router.delete("/delstudent/:id", function (req, res, next) {
-  Student.deleteOne({ _id: req.params.id }, function (error, results) {
-    if (error) {
-      return next(error);
-    }
-    res.json(results);
-  });
-});
+//----------ROUTE BY FAIQ SHAHZAD---------------------
+//Using deleteOne() function to Delete the announcement
 
 router.delete("/Announcement/:id", (req, res, next) => {
   Announcement.deleteOne({ _id: req.params.id }, (error, result) => {
@@ -281,5 +331,7 @@ router.delete("/Announcement/:id", (req, res, next) => {
     res.json(result);
   });
 });
+
+//----------------------------------------------------
 
 module.exports = router;

@@ -3,23 +3,26 @@
 A Responsive MERN Web LMS Application:
 
 # In This Instance
-
-The Teacher routes are developed here.
-Following are Teacher Routes:
+The Admin routes are to be Implemented.
+Following are Admin Routes:
 
 - Show Dashboard
-- Add Quiz
-- Download Attempted Quiz
-- Delete Quiz
-- Add Assignment
-- Download Attempted Assignment
-- Delete Assignment
-- Add Marks
-- Update Marks
-- Delete Marks
-- Update Contact info
+- Add Teacher
+- View Teachers List
+- Modify Teacher
+- Delete Teacher
+- Add Student
+- View Student List
+- Delete Student
+- View Class List
+- Add Class
+- Modify Class
+- Delete Class
+- Assign Teacher to class
+- Add Student to class
 - Add Announcement
-- Update Announcement
+- View Announcement
+- Modify Announcement
 - Delete Announcement
 
 The Student routes are developed here.
@@ -27,7 +30,11 @@ Following are Student Routes:
 
 - Submit Assignment
 
----
+```
+To View Respective Routes
+
+https://docs.google.com/spreadsheets/d/1VMdGGfDve8KiE3heea_rw7uxAFE9vu2ZLuxHy-8X8qo/edit#gid=226080548
+```
 
 <h3>Tools and Technologies:</h3>
 
@@ -37,4 +44,5 @@ Following are Student Routes:
   <li>Node Js</li>
   <li>Mongo DB</li>
   <li>Express Js</li>
+  <li>Postman or Thunder client</li>
 </ul>
