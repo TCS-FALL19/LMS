@@ -123,4 +123,20 @@ router.delete("/quiz/:id", function (req, res, next) {
 	});
 });
 
+// DELETE Assignment
+
+//Delete Assignment - FA19-BCS-044 (Muhammad Ali Khan)
+
+router.delete("/delassignment/:id", function (req, res, next) {
+	assignment.deleteOne({ _id: req.params.id }, function (error, results) {
+		if (error) {
+			return next(error);
+		}
+		res.json(results);
+	});
+});
+
+
+
+
 module.exports = router;
