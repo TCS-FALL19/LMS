@@ -3,6 +3,7 @@ var multer = require("multer");
 const router = express.Router();
 const Quiz = require("../models/quiz");
 const Assignment = require("../models/assignment");
+const Teacher = require("../models/teacher")
 
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -17,6 +18,17 @@ var upload = multer({ storage: storage });
 
 router.get("/", function (req, res, next) {
   res.send("hello teacher");
+});
+
+//Display teacher data on dashboard (FA-19/BCS/018)
+router.get("/teacher/:tid", (req, res, next) => {
+	Teacher.findById(req.params.tid).exec((err,result) => {
+		if (err)
+		{
+			return next(err);
+		}
+		res.json(result);
+	})
 });
 
 // POST routes
