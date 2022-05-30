@@ -65,4 +65,18 @@ router.get("/results/student", async (req, res, next) => {
 	}
 });
 
+router.get('/head/result/class', function(req,res,next){
+	result_schema.findById(req.body.id).populate('results').exec(function(err,foundClass){
+		if (err) next (err)
+		else{
+			var response = {
+				type: 'Success',
+				message: `Results of class ${foundClass.name} fetched successfully.`,
+				data: foundClass.results
+			}
+		   res.status(200).send(response)
+		}
+	})
+});
+
 module.exports = router;
