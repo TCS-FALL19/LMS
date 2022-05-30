@@ -238,6 +238,9 @@ router.put("/assignTeacher/:cid/:tid", (req, res, next) => {
   );
 });
 
+
+//Route Implemented by Abdul Arham Aamir
+
 router.put("/assignStudent/:cid/:sid", (req, res, next) => {
   Class.findOneAndUpdate(
     { _id: req.params.cid },
@@ -257,6 +260,8 @@ router.put("/assignStudent/:cid/:sid", (req, res, next) => {
     }
   );
 });
+//-------------------------------------------------------------
+
 
 router.put("/Announcement/:id", (req, res, next) => {
   Announcement.findOneAndUpdate(
