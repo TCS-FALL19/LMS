@@ -170,6 +170,20 @@ router.put("/assignment/addMarks/:aID/:sID", async (req, res, next) => {
   }
 });
 
+
+// Update total Mariks of Assignment
+// Implemented by: Abdul Moiz(FA19-BCS-004)
+
+router.put("/updatemarks/:aid",(req,res,next)=>{
+  Assignment.findOneAndUpdate({_id:req.params.aid},{totalMarks:req.body.totalMarks},
+  function(err,result){
+    if(err) {
+      return next(err);
+    }
+    res.status(200).json(result);
+  })
+})
+
 // GET Routes
 //View attempted quiz - FA19-BCS-033
 router.get("/quiz/:id", function (req, res, next) {
