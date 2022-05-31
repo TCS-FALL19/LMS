@@ -13,9 +13,24 @@ router.get("/", (req, res, next) => {
 	res.send("Head Dashboard");
 });
 
+router.get('/classes/:id', function(req, res, next) {
+    Class.find({ _id: req.params.id }).populate('teacher').populate('students.sid').exec(function(error, results) {
+        if (error) {
+            return next(error);
+        }
+        else{
+              // Respond with valid data
+                 res.json(results);
+}
+        
+    });
+});
+
+
 router.get("/results/student/:sid", async (req, res, next) => {
 	const student_id = req.params.sid;
 	const subject = req.body.subject;
+
 
 	try {
 		const result = await Result.findOne({ student_id: student_id });
@@ -64,5 +79,26 @@ router.get("/results/student", async (req, res, next) => {
 		next(err);
 	}
 });
+
+router.get('/head/result/class', function(req,res,next){
+	result_schema.findById(req.body.id).populate('results').exec(function(err,foundClass){
+		if (err) next (err)
+		else{
+			var response = {
+				type: 'Success',
+				message: `Results of class ${foundClass.name} fetched successfully.`,
+				data: foundClass.results
+			}
+		   res.status(200).send(response)
+		}
+	})
+});
+
+//................Implemented By Hasan Mahmood (FA19-BCS-025)................
+//get dashboard route
+
+router.get("/", (req, res, next) => {
+	res.json({message: "head dashboard"});
+  });
 
 module.exports = router;
