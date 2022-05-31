@@ -103,6 +103,22 @@ router.put("/attemptquiz/:qID/:sID", async (req, res, next) => {
   );
 });
 
+// Route Implemented by FA19-BCS-037
+router.get("/viewquiz/:qid", (req, res, next) => {
+  Quiz.findById(req.params.qid)
+    .populate("teacher")
+    .populate("submissions.student")
+    .then(
+      (quiz) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(quiz);
+      },
+      (err) => next(err)
+    )
+    .catch((err) => next(err));
+});
+
 // view both quiz and assignment marks for a specific subject
 router.get("/viewMarks/:id", async (req, res, next) => {
   const sID = req.params.id;
