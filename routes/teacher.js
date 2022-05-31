@@ -5,8 +5,8 @@ const router = express.Router();
 var path = require("path");
 const Quiz = require("../models/quiz");
 const Assignment = require("../models/assignment");
-const Teacher = require("../models/teacher");
-var Announcement = require("../models/announcement");
+const Teacher = require("../models/teacher")
+const Announcement = require("../models/announcement");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,12 +25,12 @@ router.get("/", function (req, res, next) {
 
 //Display teacher data on dashboard (FA-19/BCS/018)
 router.get("/:tid", (req, res, next) => {
-  Teacher.findById(req.params.tid).exec((err, result) => {
-    if (err) {
-      return next(err);
-    }
-    res.json(result);
-  });
+	Teacher.findById(req.params.tid).exec((err, result) => {
+		if (err) {
+			return next(err);
+		}
+		res.json(result);
+	})
 });
 
 // POST routes
@@ -194,5 +194,21 @@ router.delete("/quiz/:id", function (req, res, next) {
     res.json(result);
   });
 });
+
+// Route by Ahsan Zafar
+router.delete("/deleteAnnouncement", async (req, res) => {
+	const announcement_object = new Announcement(req.body);
+	Announcement.deleteOne({ object: announcement_object }, (err, result) => {
+		if (err) {
+			res.json({
+				message: error
+			})
+		} else {
+			res.json({
+				message: "Anouncement Successfully deleted"
+			})
+		}
+	})
+})
 
 module.exports = router;
