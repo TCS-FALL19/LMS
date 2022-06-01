@@ -130,6 +130,22 @@ router.get("/viewSubmissions/:aid", async function (req, res, next) {
   res.send(filelinks);
 });
 
+//Implemented by Tayyab Akbar FA19-BCS-039
+router.get('/downloadAssignment/:fname', function(req, res, next) {
+	var options = {
+	  root: path.join(__dirname,'../uploads/')
+	};
+	
+	var fileName = req.params.fname;
+	res.sendFile(fileName, options, function (err) {
+		if (err) {
+			next(err);
+		} else {
+			console.log('Sent:', fileName);
+		}
+	});
+  });
+
 //ADD MARKS  <<<< FA19-BCS-001
 // Teacher add marks to quizzes
 router.put("/quiz/addMarks/:qID/:sID", async (req, res, next) => {
