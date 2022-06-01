@@ -1,13 +1,9 @@
 const express = require("express");
-<<<<<<< HEAD
 
 var multer = require("multer");
-=======
->>>>>>> main
 const router = express.Router();
 var path = require("path");
 const Quiz = require("../models/quiz");
-<<<<<<< HEAD
 const Assignment = require("../models/assignment");
 const Teacher = require("../models/teacher")
 const Announcement = require("../models/announcement");
@@ -39,16 +35,6 @@ router.get("/:tid", (req, res, next) => {
 
 // POST routes
 // Implemented my yours truly abdul moeed ibn humayun al athari
-=======
-
-router.get("/", function (req, res, next) {
-	res.send("hello teacvher");
-});
-
-module.exports = router;
-
-// post routes
->>>>>>> main
 router.post("/addQuiz", async (req, res, next) => {
   try {
     const quiz = new Quiz(req.body.quiz);
@@ -91,7 +77,6 @@ router.get("/viewQuiz/:qid", (req, res, next) => {
     )
     .catch((err) => next(err));
 });
-<<<<<<< HEAD
 
 // Teacher Uploads Assignment upload.single('AttachedFile')
 // Abdullah Mohammad Shafique (FA19-BCS-007)
@@ -257,5 +242,3 @@ router.delete("/deleteAnnouncement", async (req, res) => {
 })
 
 module.exports = router;
-=======
->>>>>>> main
