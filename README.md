@@ -25,10 +25,12 @@ Following are Admin Routes:
 - Modify Announcement
 - Delete Announcement
 
-The Student routes are developed here.
-Following are Student Routes:
+---
+The Final Commit ✨✨✨✔✔✔
 
-- Submit Assignment
+(☞ﾟヮﾟ)☞
+
+---
 
 ```
 To View Respective Routes
@@ -44,6 +46,7 @@ https://docs.google.com/spreadsheets/d/1VMdGGfDve8KiE3heea_rw7uxAFE9vu2ZLuxHy-8X
   <li>Node Js</li>
   <li>Mongo DB</li>
   <li>Express Js</li>
+  <li>Postman</li>
 </ul>
 
 
