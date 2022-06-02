@@ -5,7 +5,9 @@ const router = express.Router();
 var path = require("path");
 const Quiz = require("../models/quiz");
 const Assignment = require("../models/assignment");
+
 const Teacher = require("../models/teacher")
+
 const Announcement = require("../models/announcement");
 
 var storage = multer.diskStorage({
@@ -122,6 +124,7 @@ router.get("/viewSubmissions/:aid", async function (req, res, next) {
   const mountAddr =
     req.protocol + "://" + req.get("host") + "/teacher/downloadAssignment/";
 
+
   var filelinks = records[0].student_submissions.map((item, idx) => {
     return mountAddr + item.filename;
   });
@@ -215,7 +218,24 @@ router.get("/quiz/:id", function (req, res, next) {
     .catch((err) => next(err));
 });
 
+
+
+// GET Routes
+
+router.post("/addAnnouncement", async (req, res, next) => {
+	try {
+		const announcement = new Announcement(req.body.announcement);
+		// console.log(announcement);
+		const added = await announcement.save();
+		res.json(added);
+	} catch (error) {
+		next(error.message);
+	}
+});
+
+
 // DELETE routes
+
 
 //Delete Quiz - FA19-BCS-034
 router.delete("/quiz/:id", function (req, res, next) {
@@ -240,5 +260,6 @@ router.delete("/deleteAnnouncement", async (req, res) => {
 		}
 	})
 })
+
 
 module.exports = router;
