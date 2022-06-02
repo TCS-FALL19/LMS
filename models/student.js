@@ -9,6 +9,10 @@ var studentSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	contact: {
+		type: String,
+		required: true,
+	}
 });
 
 module.exports = mongoose.model("Student", studentSchema);
